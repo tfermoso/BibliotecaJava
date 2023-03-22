@@ -66,5 +66,8 @@ public class Biblioteca {
     public static void main(String[] args)  {
        Biblioteca biblioteca = new Biblioteca();
         System.out.println(biblioteca.toString());
+        System.out.println("---------");
+        biblioteca.addLibro("El Mundo Java","JAVA","Programacion");
+        System.out.println(biblioteca.toString());
     }
 }
