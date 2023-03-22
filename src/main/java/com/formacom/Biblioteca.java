@@ -63,11 +63,32 @@ public class Biblioteca {
         }
     }
 
+    public void removeLibro(Libro libro){
+        String consulta="delete from libros where idlibro =?";
+        try {
+            PreparedStatement stm=Conexion.conectar().prepareStatement(consulta);
+            stm.setInt(1,libro.getId());
+            int affectedRows=stm.executeUpdate();
+            if(affectedRows>0){
+                //libro eliminado
+                this.libros.remove(libro);
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+
+    }
+
     public static void main(String[] args)  {
        Biblioteca biblioteca = new Biblioteca();
         System.out.println(biblioteca.toString());
         System.out.println("---------");
-        biblioteca.addLibro("El Mundo Java","JAVA","Programacion");
+        //biblioteca.addLibro("El Mundo Java","JAVA","Programacion");
+        System.out.println(biblioteca.toString());
+        System.out.println("----------");
+        biblioteca.removeLibro(biblioteca.libros.get(1));
         System.out.println(biblioteca.toString());
     }
 }
