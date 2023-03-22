@@ -1,5 +1,6 @@
 package com.formacom;
 
+import javax.swing.*;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -81,14 +82,31 @@ public class Biblioteca {
 
     }
 
+    public Libro searchLibroByCodigo(String codigo){
+        String consulta="select * from libros where codigo=?";
+        try {
+            PreparedStatement stm=Conexion.conectar().prepareStatement(consulta);
+            stm.setString(1,codigo);
+            ResultSet rs=stm.executeQuery();
+            if(rs.next()){
+                Libro libro=new Libro();
+                libro.setId(rs.getInt("idlibro"));
+                libro.setCodigo(rs.getString("codigo"));
+                libro.setTitulo(rs.getString("titulo"));
+                libro.setGenero(rs.getString("genero"));
+                return libro;
+            }else{
+                return  null;
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
     public static void main(String[] args)  {
        Biblioteca biblioteca = new Biblioteca();
-        System.out.println(biblioteca.toString());
-        System.out.println("---------");
-        //biblioteca.addLibro("El Mundo Java","JAVA","Programacion");
-        System.out.println(biblioteca.toString());
-        System.out.println("----------");
-        biblioteca.removeLibro(biblioteca.libros.get(1));
-        System.out.println(biblioteca.toString());
+       Libro libro=biblioteca.searchLibroByCodigo("JAVA");
+       if(libro!=null) System.out.println(libro.toString());
     }
 }
