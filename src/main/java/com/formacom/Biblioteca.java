@@ -13,7 +13,6 @@ public class Biblioteca {
                 "libros=" + libros +
                 '}';
     }
-
     public Biblioteca() {
         this.libros=new ArrayList<>();
         Connection conn=Conexion.conectar();
@@ -35,6 +34,32 @@ public class Biblioteca {
             }
         }else{
             System.out.println("Error al conectarse a la BBDD");
+        }
+    }
+
+    public void addLibro(String titulo,String codigo,String genero){
+        String consulta="insert into libros (titulo,codigo,genero) values (?,?,?)";
+        int idLibro=0;
+        Connection conn=Conexion.conectar();
+        try {
+            PreparedStatement stm=conn.prepareStatement(consulta,Statement.RETURN_GENERATED_KEYS);
+            stm.setString(1,titulo);
+            stm.setString(2,codigo);
+            stm.setString(3,genero);
+            int affectedRows=stm.executeUpdate();
+            if(affectedRows>0){
+                ResultSet rs=stm.getGeneratedKeys();
+                if(rs.next()){
+                    idLibro=rs.getInt(1);
+                    Libro libro=new Libro(idLibro,titulo,codigo,genero);
+                    this.libros.add(libro);
+                }
+            }else{
+                System.out.println("Error al insertar");
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 
