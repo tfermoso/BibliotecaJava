@@ -28,9 +28,14 @@ public class Main {
                     System.out.println("Introduce género:");
                     String genero=leer.nextLine();
                     List<Libro> libroList=biblioteca.searchLibrosByGenero(genero);
-                    libroList.forEach(libro->{
-                        System.out.println(libro.toString());
-                    });
+                    if(libroList.size()>0){
+                        libroList.forEach(libro->{
+                            System.out.println(libro.toString());
+                        });
+                    }else{
+                        System.out.println("No hay libros del género "+genero);
+                    }
+
                     break;
 
             }
