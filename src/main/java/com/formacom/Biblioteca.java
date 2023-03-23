@@ -114,11 +114,5 @@ public class Biblioteca {
         return  libroList;
     }
 
-    public static void main(String[] args)  {
-       Biblioteca biblioteca = new Biblioteca();
-       List<Libro> libros=biblioteca.searchLibrosByGenero("Programacion");
-       libros.forEach(libro->{
-           System.out.println(libro.toString());
-       });
-    }
+
 }
