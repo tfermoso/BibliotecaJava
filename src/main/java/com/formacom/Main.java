@@ -1,5 +1,6 @@
 package com.formacom;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -19,7 +20,20 @@ public class Main {
         do{
             System.out.println(MENU);
             opcion=leer.nextLine();
+            switch (opcion){
+                case "1":
+                    System.out.println(biblioteca.toString());
+                    break;
+                case "2":
+                    System.out.println("Introduce género:");
+                    String genero=leer.nextLine();
+                    List<Libro> libroList=biblioteca.searchLibrosByGenero(genero);
+                    libroList.forEach(libro->{
+                        System.out.println(libro.toString());
+                    });
+                    break;
 
+            }
 
         }while(! opcion.equals("6"));
     }
