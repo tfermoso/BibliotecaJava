@@ -104,9 +104,21 @@ public class Biblioteca {
 
     }
 
+    public List<Libro> searchLibrosByGenero(String genero){
+        List<Libro> libroList=new ArrayList<>();
+        for (int i = 0; i < this.libros.size(); i++) {
+           if(this.libros.get(i).getGenero().equals(genero)){
+               libroList.add(this.libros.get(i));
+           }
+        }
+        return  libroList;
+    }
+
     public static void main(String[] args)  {
        Biblioteca biblioteca = new Biblioteca();
-       Libro libro=biblioteca.searchLibroByCodigo("JAVA");
-       if(libro!=null) System.out.println(libro.toString());
+       List<Libro> libros=biblioteca.searchLibrosByGenero("Programacion");
+       libros.forEach(libro->{
+           System.out.println(libro.toString());
+       });
     }
 }
